@@ -2,39 +2,37 @@ using UnityEngine;
 
 public class Note : MonoBehaviour
 {
-    public Vector3 animGrowth;
+    public Vector3 animDir;
     public float animDuration;
 
+    private float beat;
     private float speed;
     private float dest; //x-pos of destination
     private float distancePastGoal; //distance (on x axis) that note is allowed to scroll past goal before being dying
     private TimingCounter TimingCounter;
 
-    private bool animating;
+    private bool dying;
     private float animTime;
 
     void Update () {
-        transform.Translate(new Vector3(-speed, 0, 0) * Time.deltaTime);
-        if(transform.position.x <= dest - distancePastGoal) {
-            TimingCounter.NoteDied();
-            Destroy(gameObject);
-        }
-
-        if(animating) {
-            if(animTime <= animDuration/2.0f) {
-                transform.localScale += animGrowth * Time.deltaTime;
-            } else {
-                transform.localScale -= animGrowth * Time.deltaTime;
-            }
+        if(dying) {
+            transform.position += animDir * Time.deltaTime;
 
             animTime += Time.deltaTime;
             if(animTime >= animDuration) {
-                animating = false;
+                KillNote();
+            }
+        } else {
+            transform.Translate(new Vector3(-speed, 0, 0) * Time.deltaTime);
+            if(transform.position.x <= dest - distancePastGoal) {
+                TimingCounter.NoteDied();
+                KillNote();
             }
         }
     }
 
-    public void Init(float speed, float dest, float past, TimingCounter timingCounter) {
+    public void Init(float beat, float speed, float dest, float past, TimingCounter timingCounter) {
+        this.beat = beat;
         this.speed = speed;
         this.dest = dest;
         distancePastGoal = past;
@@ -42,8 +40,15 @@ public class Note : MonoBehaviour
     }
 
     public void PlayHitAnimation () {
-        animating = true;
-        animTime = 0.0f;
+        if(!dying) {
+            dying = true;
+            animTime = 0.0f;
+        }
     } 
+
+    private void KillNote() {
+        TimingCounter.NoteController.NoteDied(beat);
+        Destroy(gameObject);
+    }
 
 }

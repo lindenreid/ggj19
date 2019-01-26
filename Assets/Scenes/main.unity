@@ -892,11 +892,12 @@ MonoBehaviour:
   okObj: {fileID: 717905984}
   perfObj: {fileID: 505996283}
   songStartTime: 0
-  accuracyGreat: 0.1
-  accuracyOk: 0.2
+  accuracyGreat: 0.05
+  accuracyOk: 0.1
+  attemptWindow: 0.3
   interval: 2
   beatsPerSec: 2
-  firstBeat: 8
+  firstBeat: 4
 --- !u!114 &1345018716
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -915,7 +916,7 @@ MonoBehaviour:
   notePrefab: {fileID: 941986587132823841, guid: 2ad4fbbe8a864df4e93ccde3115db789,
     type: 3}
   beatsTillDest: 8
-  distancePastGoal: 0.2
+  distancePastGoal: 1
 --- !u!1 &1520869820
 GameObject:
   m_ObjectHideFlags: 0
