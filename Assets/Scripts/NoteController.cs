@@ -40,7 +40,7 @@ public class NoteController : MonoBehaviour
         if(TimingCounter.AudioSource.time >= noteSpawnTimes[nextBeatIndex]) {
             GameObject noteObj = Instantiate(notePrefab, noteStartLocation) as GameObject;
             Note note = noteObj.GetComponent<Note>();
-            note.Init(speed: distanceToGoal / timeFromSpawnToGoal, dest:noteEndLocation.position.x, past:distancePastGoal);
+            note.Init(speed: distanceToGoal / timeFromSpawnToGoal, dest:noteEndLocation.position.x, past:distancePastGoal, timingCounter:TimingCounter);
             nextBeatIndex++;
         }
     }
