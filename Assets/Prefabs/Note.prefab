@@ -93,4 +93,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animDir: {x: 0, y: 10, z: 0}
-  animDuration: 3
+  animDuration: 1

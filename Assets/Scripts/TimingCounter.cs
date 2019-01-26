@@ -52,33 +52,25 @@ public class TimingCounter : MonoBehaviour
             Debug.Log("b: " + f);
         }*/
 
+        currentBeatIndex = 0;
+
         NoteController.Init(timeFromSpawnToGoal);
     }
 
     public void NoteHit () {
         float songPos = AudioSource.time;
 
-        // 1. FIND CLOSEST BEAT AND TIME DIFFERENCE BETWEEN BEAT TIME AND ACTUAL TIME
+        // 1. FIND TIME DIFFERENCE BETWEEN BEAT TIME AND ACTUAL TIME
         var beatTimes = beats.Keys;
-        float timingDifference = float.MaxValue;
-        float attemptedBeat = -1.0f;
+        float beat = GetCurrentBeat();
+        float timingDifference = Mathf.Abs(beat - songPos);
 
-        // could probably make this a binary search since the list is sorted to be faster, but who cares 
-        // find the beat start time that's closeset to the input time
-        foreach(float beat in beatTimes) { 
-            float diff = Mathf.Abs(beat - songPos);
-            if(diff < timingDifference) {
-                timingDifference = diff;
-                attemptedBeat = beat;
-            }
-        }
-
-        // 1.5. CHECK IF NEXT BEAT IS CLOSE ENOUGH TO BOTHER CHECKING FOR ACCURACY
+        // 2. CHECK IF NEXT BEAT IS CLOSE ENOUGH TO BOTHER CHECKING FOR ACCURACY
         if(timingDifference >= attemptWindow) {
             return;
         }
 
-        // 2. GET ACCURACY BASED ON TIME DIFFERENCE
+        // 3. GET ACCURACY BASED ON TIME DIFFERENCE
         Accuracy acc = Accuracy.Miss;
 
         if(timingDifference <= accuracyOk && timingDifference > accuracyGreat) {
@@ -89,9 +81,9 @@ public class TimingCounter : MonoBehaviour
 
         //Debug.Log("current time: " + songPos + "; timing diff: " + timingDifference + "; accuracy: " + acc);
 
-        // 3. DISPLAY RESULTS
+        // 4. DISPLAY RESULTS
         ShowAccuracy(acc);
-        NoteController.NoteHit(attemptedBeat);
+        NoteController.NoteHit(beat);
         
         IncrementBeat();
     }
