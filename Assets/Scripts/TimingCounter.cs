@@ -23,24 +23,37 @@ public class TimingCounter : MonoBehaviour
     public float beatsPerSec = 1.0f; // number of beats per sec in this song
     public int firstBeat = 8;
 
-    private List<float> beats;
+    private Dictionary<float, float> beats; // maps beat time (sec) to note spawn time (sec)
+    public Dictionary<float, float> Beats {
+        get { return Beats; }
+    }
+
+    private int currentBeatIndex = 0;
+    public int CurrentNoteIndex {
+        get { return currentBeatIndex; }
+    }
+
     private bool attemptedCurrentNote = false;
 
     void Start () {
-        beats = new List<float>();
+        beats = new Dictionary<float, float>();
+        float timeFromSpawnToGoal = NoteController.beatsTillDest / beatsPerSec;
 
         // initialize all of the song time location of beats
         float currentTime = songStartTime + firstBeat*beatsPerSec; // start at time of first beat
         while(currentTime <= AudioSource.clip.length) {
-            beats.Add(currentTime);
-            currentTime += interval / beatsPerSec;
+            float spawnTime = currentTime - timeFromSpawnToGoal;
+            if(spawnTime >= timeFromSpawnToGoal) { // don't add any notes that start too early
+                beats.Add(currentTime, spawnTime);
+                currentTime += interval / beatsPerSec;
+            }
         }
 
         /*foreach(float f in beats) {
             Debug.Log("b: " + f);
         }*/
 
-        NoteController.Init(beats);
+        NoteController.Init(timeFromSpawnToGoal);
     }
 
     public void NoteHit () {
@@ -54,6 +67,20 @@ public class TimingCounter : MonoBehaviour
             ShowAccuracy(Accuracy.Miss);
         }
         attemptedCurrentNote = false;
+        currentBeatIndex++;
+    }
+
+    public float GetCurrentBeat () {
+        float[] beatTimes = new float[beats.Keys.Count];
+        beats.Keys.CopyTo(beatTimes, 0);
+        return beatTimes[currentBeatIndex];
+    }
+
+    public float GetBeatSpawnTime (int beatIndex) {
+        float[] beatTimes = new float[beats.Keys.Count];
+        beats.Keys.CopyTo(beatTimes, 0);
+        float beat = beatTimes[beatIndex];
+        return beats[beat];
     }
 
     private Accuracy GetAccuracy () {
@@ -97,11 +124,13 @@ public class TimingCounter : MonoBehaviour
     }
 
     private float GetClosestBeatTimeDifference (float time) {
-        float smallestDiff = Mathf.Abs(beats[0] - time);
+        var beatTimes = beats.Keys;
+        float smallestDiff = float.MaxValue;
 
         // could probably make this a binary search since the list is sorted to be faster, but who cares 
-        for(int i = 1; i < beats.Count; i++) { 
-            float diff = Mathf.Abs(beats[i] - time);
+        // find the beat start time that's closeset to the input time
+        foreach(float beat in beatTimes) { 
+            float diff = Mathf.Abs(beat - time);
             if(diff < smallestDiff)
                 smallestDiff = diff;
         }
