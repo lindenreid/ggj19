@@ -78,17 +78,17 @@ public class TimingCounter : MonoBehaviour
         BeatInfo beatInfo = GetCurrentBeat();
         Accuracy acc = Accuracy.Miss; // guilty until proven innocent
 
-        // 0. FIGURE OUT IF CORRECT BUTTON WAS HIT
+        // 1. FIND TIME DIFFERENCE BETWEEN BEAT TIME AND ACTUAL TIME
+        float timingDifference = Mathf.Abs(beatInfo.beat - songPos);
+
+        // 2. CHECK IF NEXT BEAT IS CLOSE ENOUGH TO BOTHER CHECKING FOR ACCURACY
+        if(timingDifference >= attemptWindow) {
+            return;
+        }
+
+        // 3. FIGURE OUT IF CORRECT BUTTON WAS HIT
         if(beatType == beatInfo.beatType) {
-            // 1. FIND TIME DIFFERENCE BETWEEN BEAT TIME AND ACTUAL TIME
-            float timingDifference = Mathf.Abs(beatInfo.beat - songPos);
-
-            // 2. CHECK IF NEXT BEAT IS CLOSE ENOUGH TO BOTHER CHECKING FOR ACCURACY
-            if(timingDifference >= attemptWindow) {
-                return;
-            }
-
-            // 3. GET ACCURACY BASED ON TIME DIFFERENCE
+            // 4. GET ACCURACY BASED ON TIME DIFFERENCE
             if(timingDifference <= accuracyOk && timingDifference > accuracyGreat) {
                 acc = Accuracy.Ok;
             } else if (timingDifference <= accuracyGreat) {

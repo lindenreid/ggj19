@@ -2,18 +2,74 @@
     "sequences":
     [
         {
+            "noteType" : "3",
+            "hasPriority" : "false",
+            "interval" : 10,
+            "startTime" : 14.5,
+            "endTime" : 16
+        },
+        {
             "noteType" : "0",
             "hasPriority" : "false",
             "interval" : 1.5,
-            "startTime" : 16.5,
+            "startTime" : 16,
             "endTime" : 292
         },
         {
             "noteType" : "1",
             "hasPriority" : "true",
             "interval" : 4,
-            "startTime" : 40.5,
+            "startTime" : 40,
             "endTime" : 292
+        },
+        {
+            "noteType" : "2",
+            "hasPriority" : "true",
+            "interval" : 3,
+            "startTime" : 64,
+            "endTime" : 112
+        },
+        {
+            "noteType" : "3",
+            "hasPriority" : "true",
+            "interval" : 6,
+            "startTime" : 88,
+            "endTime" : 112
+        },
+        {
+            "noteType" : "0",
+            "hasPriority" : "true",
+            "interval" : 5,
+            "startTime" : 112,
+            "endTime" : 113
+        },
+        {
+            "noteType" : "2",
+            "hasPriority" : "true",
+            "interval" : 3,
+            "startTime" : 113,
+            "endTime" : 160
+        },
+        {
+            "noteType" : "2",
+            "hasPriority" : "true",
+            "interval" : 3,
+            "startTime" : 185.5,
+            "endTime" : 209
+        },
+        {
+            "noteType" : "0",
+            "hasPriority" : "true",
+            "interval" : 5,
+            "startTime" : 211,
+            "endTime" : 212
+        },
+        {
+            "noteType" : "2",
+            "hasPriority" : "true",
+            "interval" : 3,
+            "startTime" : 213,
+            "endTime" : 265
         }
     ]
 }

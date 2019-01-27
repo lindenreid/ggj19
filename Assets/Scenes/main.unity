@@ -693,7 +693,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 639975287}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -7.745403, y: -1.59, z: 0}
+  m_LocalPosition: {x: -7.83, y: -1.59, z: 0}
   m_LocalScale: {x: 8, y: 8, z: 1}
   m_Children: []
   m_Father: {fileID: 485048996}
@@ -1540,7 +1540,6 @@ MonoBehaviour:
   accuracyOk: 0.1
   attemptWindow: 0.3
   beatsPerSec: 2
-  firstBeat: 0
 --- !u!114 &1345018716
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1576,7 +1575,7 @@ MonoBehaviour:
   pointsPerOk: 10
   pointsPerPerfect: 20
   comboLostPerMiss: 2
-  maxCombo: 10
+  maxCombo: 50
   comboBonusTime: 5
   comboMultiplier: 2
 --- !u!1 &1504792887
