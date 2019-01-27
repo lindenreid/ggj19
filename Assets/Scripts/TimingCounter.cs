@@ -90,6 +90,9 @@ public class TimingCounter : MonoBehaviour
     public void NoteDied () {
         UI.ShowAccuracy(Accuracy.Miss);
 
+        // tell score
+        Score.NoteHit(Accuracy.Miss);
+
         // tell notecontroller so it can remove the note from the list of current notes
         float beat = GetCurrentBeat();
         NoteController.NoteDied(beat);

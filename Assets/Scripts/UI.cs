@@ -6,8 +6,17 @@ public class UI : MonoBehaviour
     public GameObject missObj;
     public GameObject okObj;
     public GameObject perfObj;
+    public GameObject comboObj;
 
     public Text ScoreText;
+    public Renderer ComboBarRenderer;
+    public string FillPercentPropertyName = "_FillPercent";
+
+    private Material ComboMaterial;
+
+    void Start() {
+        ComboMaterial = ComboBarRenderer.material;
+    }
     
     public void ShowAccuracy(Accuracy acc) {
         switch(acc) {
@@ -32,7 +41,20 @@ public class UI : MonoBehaviour
         }
     }
 
-    public void UpdateScore(float score) {
+    public void UpdateScore(float score, float comboPercent) {
         ScoreText.text = "" + score;
+        UpdateCombo(comboPercent);
+    }
+
+    public void UpdateCombo(float comboPercent) {
+        ComboMaterial.SetFloat(FillPercentPropertyName, comboPercent);
+    }
+
+    public void ShowComboZone () {
+        comboObj.SetActive(true);
+    }
+
+    public void HideComboZone () {
+        comboObj.SetActive(false);
     }
 }
