@@ -12,6 +12,8 @@ public class TimingCounter : MonoBehaviour
 {
     public UI UI;
     public AudioSource AudioSource;
+    public AudioSource NoteHitAudioSource;
+    public AudioClip NoteHitClip;
     public NoteController NoteController;
     public Score Score;
     public DumplingAnimator DumplingAnimator;
@@ -115,6 +117,7 @@ public class TimingCounter : MonoBehaviour
         // animate dumpling if we hit the note!
         if(acc != Accuracy.Miss) {
             DumplingAnimator.IncrementFrame();
+            NoteHitAudioSource.PlayOneShot(NoteHitClip, 1);
         }
         
         IncrementBeat();
