@@ -7,10 +7,9 @@ public class Notification : MonoBehaviour
     public float duration;
 
     private float timeRemaining;
-    private bool animating;
+    private bool animating = false;
 
     void Start () {
-        Restart(enable:false);
     }
 
     void Update () {

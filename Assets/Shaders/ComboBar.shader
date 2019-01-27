@@ -78,7 +78,7 @@ Shader "Custom/ComboBar"
                 // tint this pixel if it's past the fill line (on x axis)
                 half4 color = half4(Gradient(IN.texcoord.x, 0, 1), 1.0);
                 int applyFill = IN.texcoord.x <= _FillPercent;
-                c = applyFill*(c*color) + (1-applyFill)*c;
+                c = applyFill*(color) + (1-applyFill)*c;
 
                 //return half4(IN.texcoord.x, 0, 0, 1);
                 return c;

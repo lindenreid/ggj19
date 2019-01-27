@@ -20,6 +20,7 @@ public class UI : MonoBehaviour
     }
     
     public void ShowAccuracy(Accuracy acc) {
+        Debug.Log("show accuracy: " + acc);
         switch(acc) {
             case Accuracy.Great:
                 missNotif.Restart(enable:false);
