@@ -1783,7 +1783,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1545015079
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2036,9 +2036,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c66d6bdb986e043448a885b7030b0346, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  SpriteRenderer: {fileID: 1699182251}
   anim: {fileID: 1699182250}
   animName: dumpling
-  numFrames: 9
+  numFrames: 8
+  originalLocation: {x: -5.8, y: 1.01, z: 0}
+  finishAnimation: {x: 0, y: 15, z: 0}
+  fadeSpeed: 2
+  finishAnimDuration: 0.5
 --- !u!1 &1751133874
 GameObject:
   m_ObjectHideFlags: 0
