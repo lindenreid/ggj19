@@ -302,8 +302,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -614.8, y: -457.22}
-  m_SizeDelta: {x: 375.9, y: 135.9}
+  m_AnchoredPosition: {x: -608.3, y: -457.21997}
+  m_SizeDelta: {x: 651.5, y: 135.9}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &384142647
 MonoBehaviour:
@@ -338,7 +338,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 0
+  m_Text: 'score: 0'
 --- !u!222 &384142648
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -823,8 +823,8 @@ MonoBehaviour:
   perfNotif: {fileID: 505996287}
   comboObjs:
   - {fileID: 855157186}
-  - {fileID: 1751133874}
   ScoreText: {fileID: 384142647}
+  DumplingText: {fileID: 1504792889}
   ComboBarRenderer: {fileID: 833058417}
   FillPercentPropertyName: _FillPercent
 --- !u!1 &717905984
@@ -1590,7 +1590,7 @@ GameObject:
   - component: {fileID: 1504792890}
   - component: {fileID: 1504792889}
   m_Layer: 5
-  m_Name: song name
+  m_Name: dumplings text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1612,8 +1612,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 607.15, y: -457.21997}
-  m_SizeDelta: {x: 531.7, y: 135.9}
+  m_AnchoredPosition: {x: 582.88, y: -457.21997}
+  m_SizeDelta: {x: 696.25, y: 135.9}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1504792889
 MonoBehaviour:
@@ -1648,7 +1648,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: dumplings
+  m_Text: 'dumplings: 0'
 --- !u!222 &1504792890
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2036,6 +2036,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c66d6bdb986e043448a885b7030b0346, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Score: {fileID: 1345018717}
   SpriteRenderer: {fileID: 1699182251}
   anim: {fileID: 1699182250}
   animName: dumpling
@@ -2075,7 +2076,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.20784314, g: 0.20784314, b: 0.20784314, a: 1}
+  m_Color: {r: 0.42021182, g: 0.5492877, b: 0.6698113, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -2120,6 +2121,6 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -169.39992, y: -457.21997}
+  m_AnchoredPosition: {x: -25.1, y: -457.21997}
   m_SizeDelta: {x: 514.9, y: 135.9}
   m_Pivot: {x: 0.5, y: 0.5}

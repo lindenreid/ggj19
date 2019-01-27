@@ -10,6 +10,7 @@ public class UI : MonoBehaviour
     public List<GameObject> comboObjs;
 
     public Text ScoreText;
+    public Text DumplingText;
     public Renderer ComboBarRenderer;
     public string FillPercentPropertyName = "_FillPercent";
 
@@ -44,12 +45,16 @@ public class UI : MonoBehaviour
     }
 
     public void UpdateScore(float score, float comboPercent) {
-        ScoreText.text = "" + score;
+        ScoreText.text = "score: " + score;
         UpdateCombo(comboPercent);
     }
 
     public void UpdateCombo(float comboPercent) {
         ComboMaterial.SetFloat(FillPercentPropertyName, comboPercent);
+    }
+
+    public void UpdateDumplings(int dumplings) {
+        DumplingText.text = "dumplings: " + dumplings;
     }
 
     public void SetComboZoneVisible (bool visible) {

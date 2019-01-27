@@ -2,6 +2,7 @@
 
 public class DumplingAnimator : MonoBehaviour
 {
+    public Score Score;
     public SpriteRenderer SpriteRenderer;
     public Animator anim;
     public string animName;
@@ -73,6 +74,8 @@ public class DumplingAnimator : MonoBehaviour
             SpriteRenderer.color.g,
             1.0f
         );
+
+        Score.FinishedDumpling();
     }
 
     private void StartAnimation () {
