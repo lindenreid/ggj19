@@ -8,6 +8,15 @@ public class UI : MonoBehaviour
     public Notification okNotif;
     public Notification perfNotif;
     public List<GameObject> comboObjs;
+    public GameObject hudObj;
+
+    public GameObject endgameObj;
+    public Text finalScoreText;
+    public Text streakText;
+    public Text perfText;
+    public Text okText;
+    public Text missText;
+    public Text dumplingText;
 
     public Text ScoreText;
     public Text DumplingText;
@@ -61,5 +70,24 @@ public class UI : MonoBehaviour
         foreach(GameObject g in comboObjs) { 
             g.SetActive(visible);
         }
+    }
+
+    public void EndGame(
+        float finalScore,
+        int streak,
+        int dumplings,
+        int perf,
+        int ok,
+        int m
+    ) {
+        hudObj.SetActive(false);
+        endgameObj.SetActive(true);
+
+        finalScoreText.text = "final score: " + finalScore;
+        streakText.text = "longest streak: " + streak;
+        dumplingText.text = "dumplings made: " + dumplings;
+        perfText.text = "" + perf;
+        okText.text = "" + ok;
+        missText.text = "" + m;
     }
 }

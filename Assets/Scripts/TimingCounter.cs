@@ -39,7 +39,14 @@ public class TimingCounter : MonoBehaviour
 
     private List<BeatSequence> beatSequences;
 
+    private bool gameRunning;
+    public bool GameRunning {
+        get { return gameRunning; }
+    }
+
     void Start () {
+        gameRunning = true; 
+
         ImportBeatSequences();
 
         beats = new Dictionary<BeatInfo, float>();
@@ -74,6 +81,8 @@ public class TimingCounter : MonoBehaviour
     }
 
     public void NoteHit (BeatType beatType) {
+        if(!gameRunning) return;
+
         float songPos = AudioSource.time;
         BeatInfo beatInfo = GetCurrentBeat();
         Accuracy acc = Accuracy.Miss; // guilty until proven innocent
@@ -143,9 +152,15 @@ public class TimingCounter : MonoBehaviour
     }
 
     private void IncrementBeat() {
+        if(!gameRunning) return;
+
         //BeatInfo i = GetBeat(currentBeatIndex);
         //Debug.Log("beat type: " + i.beatType + "; beat: " + i.beat);
         currentBeatIndex++;
+
+        if(currentBeatIndex >= beats.Keys.Count) {
+            EndGame();
+        }
     }
 
     // THIS SHOUDL BE SOMEWHERE ELSE BUT IDC
@@ -190,5 +205,10 @@ public class TimingCounter : MonoBehaviour
             }
         }
         beats = newBeats;
+    }
+
+    private void EndGame() {
+        gameRunning = false;
+        Score.EndGame();
     }
 }

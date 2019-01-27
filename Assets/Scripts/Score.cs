@@ -18,6 +18,10 @@ public class Score : MonoBehaviour
     private int dumplingsFinished;
     private int longestStreak;
     private int currentStreak;
+    
+    private int numPerf;
+    private int numOk;
+    private int numMiss;
 
     void Start () {
         Init();
@@ -31,6 +35,9 @@ public class Score : MonoBehaviour
         dumplingsFinished = 0;
         longestStreak = 0;
         currentStreak = 0;
+        numMiss = 0;
+        numOk = 0;
+        numPerf = 0;
     }
 
     void Update () {
@@ -52,16 +59,19 @@ public class Score : MonoBehaviour
                 if(!comboZone) combo -= comboLostPerMiss;
                 if(currentStreak > longestStreak) longestStreak = currentStreak;
                 currentStreak = 0;
+                numMiss++;
             break;
             case Accuracy.Ok:
                 pointAdd = pointsPerOk;
                 if(!comboZone) combo ++;
                 currentStreak++;
+                numOk++;
             break;
             case Accuracy.Great:
                 pointAdd = pointsPerPerfect;
                 if(!comboZone) combo ++;
                 currentStreak++;
+                numPerf++;
             break;
             default:
                 Debug.LogError("unhandled accuracy case in Score.Hit()");
@@ -84,6 +94,17 @@ public class Score : MonoBehaviour
     public void FinishedDumpling() {
         dumplingsFinished++;
         UI.UpdateDumplings(dumplingsFinished);
+    }
+
+    public void EndGame() {
+        UI.EndGame (
+            score,
+            longestStreak,
+            dumplingsFinished,
+            numPerf,
+            numOk,
+            numMiss
+        );
     }
 
     private void StartComboZone () {

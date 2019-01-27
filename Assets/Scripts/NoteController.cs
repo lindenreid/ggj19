@@ -24,6 +24,8 @@ public class NoteController : MonoBehaviour
     }
 
     void Update () {
+        if(!TimingCounter.GameRunning) return;
+
         if(TimingCounter.AudioSource.time >= TimingCounter.GetBeatSpawnTime(nextBeatToSpawnIndex)) {
             BeatInfo i = TimingCounter.GetBeat(nextBeatToSpawnIndex);
             SpawnNewNote(i);

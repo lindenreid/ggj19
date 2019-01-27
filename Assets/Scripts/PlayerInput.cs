@@ -6,6 +6,8 @@ public class PlayerInput : MonoBehaviour
     public TimingCounter TimingCounter;
 
     void Update () {
+        if(!TimingCounter.GameRunning) return;
+
         // LLOK, THERES PROBABLY A BETTER WAY TO DO THIS
         if (Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.W))
         {
