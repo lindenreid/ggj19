@@ -92,5 +92,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b458e608251a0649b21738c3a254dc8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  SpriteRenderer: {fileID: 779052476568417632}
   animDir: {x: 0, y: 10, z: 0}
   animDuration: 1
+  fadeSpeed: 2.5
+  UpSprite: {fileID: 21300000, guid: ad9b790c583433f4a872d315e04b074a, type: 3}
+  DownSprite: {fileID: 21300000, guid: f706c171896c247468122f1f5b7bcac0, type: 3}
+  LeftSprite: {fileID: 21300000, guid: 9fb2ed6d09facdb47a4e89bb47423b65, type: 3}
+  RightSprite: {fileID: 21300000, guid: 0cdf966af95a64140a6ff9288ec53e49, type: 3}

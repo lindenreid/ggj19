@@ -1,0 +1,17 @@
+{
+    "sequences":
+    [
+        {
+            "noteType" : "0",
+            "interval" : 2,
+            "startTime" : 0,
+            "endTime" : 120
+        },
+        {
+            "noteType" : "1",
+            "interval" : 5,
+            "startTime" : 0,
+            "endTime" : 120
+        }
+    ]
+}

@@ -7,17 +7,20 @@ public class Notification : MonoBehaviour
     public float duration;
 
     private float timeRemaining;
+    private bool animating;
 
     void Start () {
         Restart(enable:false);
     }
 
     void Update () {
-        timeRemaining -= Time.deltaTime;
-        if(timeRemaining > 0.0f) {
-            transform.localPosition += anim * Time.deltaTime;
-        } else {
-            Restart(enable:false);
+        if(animating) {
+            if(timeRemaining > 0.0f) {
+                transform.localPosition += anim * Time.deltaTime;
+            } else {
+                Restart(enable:false);
+            }
+            timeRemaining -= Time.deltaTime;
         }
     }
 
@@ -25,5 +28,6 @@ public class Notification : MonoBehaviour
         transform.localPosition = originalLocation;
         timeRemaining = duration;
         gameObject.SetActive(enable);
+        animating = enable;
     }
 }

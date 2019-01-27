@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 using UnityEngine.UI;
 
 public class UI : MonoBehaviour
@@ -6,7 +7,7 @@ public class UI : MonoBehaviour
     public Notification missNotif;
     public Notification okNotif;
     public Notification perfNotif;
-    public GameObject comboObj;
+    public List<GameObject> comboObjs;
 
     public Text ScoreText;
     public Renderer ComboBarRenderer;
@@ -50,11 +51,9 @@ public class UI : MonoBehaviour
         ComboMaterial.SetFloat(FillPercentPropertyName, comboPercent);
     }
 
-    public void ShowComboZone () {
-        comboObj.SetActive(true);
-    }
-
-    public void HideComboZone () {
-        comboObj.SetActive(false);
+    public void SetComboZoneVisible (bool visible) {
+        foreach(GameObject g in comboObjs) { 
+            g.SetActive(visible);
+        }
     }
 }

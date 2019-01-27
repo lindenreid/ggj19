@@ -25,7 +25,8 @@ public class NoteController : MonoBehaviour
 
     void Update () {
         if(TimingCounter.AudioSource.time >= TimingCounter.GetBeatSpawnTime(nextBeatToSpawnIndex)) {
-            SpawnNewNote(TimingCounter.GetBeat(nextBeatToSpawnIndex));
+            BeatInfo i = TimingCounter.GetBeat(nextBeatToSpawnIndex);
+            SpawnNewNote(i);
             nextBeatToSpawnIndex++;
         }
     }
@@ -45,13 +46,22 @@ public class NoteController : MonoBehaviour
         notes.Remove(beat);
     }
 
-    public void SpawnNewNote(float beat) {
+    public void SpawnNewNote(BeatInfo beatInfo) {
+        float beat = beatInfo.beat;
+
         GameObject noteObj = Instantiate(notePrefab, noteStartLocation) as GameObject;
         Note note = noteObj.GetComponent<Note>();
-        note.Init(beat:beat, speed:distanceToGoal / timeFromSpawnToGoal, dest:noteEndLocation.position.x, past:distancePastGoal, timingCounter:TimingCounter);
+        note.Init( 
+            beat:beat,
+            speed:distanceToGoal / timeFromSpawnToGoal,
+            dest:noteEndLocation.position.x,
+            past:distancePastGoal,
+            beatType:beatInfo.beatType,
+            timingCounter:TimingCounter
+        );
 
         // for debug purposes
-        noteObj.name = "Beat " + beat;
+        noteObj.name = "Beat " + beat + " " + beatInfo.beatType;
 
         notes.Add(beat, note);
     }

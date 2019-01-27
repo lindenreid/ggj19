@@ -75,13 +75,13 @@ public class Score : MonoBehaviour
         comboTimeLeft = comboBonusTime;
         combo = 0;
         comboZone = true;
-        UI.ShowComboZone();
+        UI.SetComboZoneVisible(true);
     }
 
     private void EndComboZone () {
-        UI.HideComboZone();
-        UI.UpdateCombo(0);
         comboZone = false;
+        UI.UpdateCombo(0);
+        UI.SetComboZoneVisible(false);
     }
 
     private int Clamp(int x, int min, int max) {
