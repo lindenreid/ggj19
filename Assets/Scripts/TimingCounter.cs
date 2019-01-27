@@ -13,6 +13,7 @@ public class TimingCounter : MonoBehaviour
     public AudioSource AudioSource;
     public NoteController NoteController;
     public Score Score;
+    public DumplingAnimator DumplingAnimator;
     
     public string DataFileName = "sequences.json";
 
@@ -93,6 +94,11 @@ public class TimingCounter : MonoBehaviour
         UI.ShowAccuracy(acc);
         NoteController.NoteHit(beatInfo.beat);
         Score.NoteHit(acc);
+
+        // animate dumpling if we hit the note!
+        if(acc != Accuracy.Miss) {
+            DumplingAnimator.IncrementFrame();
+        }
         
         IncrementBeat();
     }
