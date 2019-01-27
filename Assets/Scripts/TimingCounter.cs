@@ -29,7 +29,7 @@ public class TimingCounter : MonoBehaviour
 
     private Dictionary<BeatInfo, float> beats; // maps beat time (sec) to note spawn time (sec)
     public Dictionary<BeatInfo, float> Beats {
-        get { return Beats; }
+        get { return beats; }
     }
 
     private int currentBeatIndex = 0;
@@ -139,12 +139,16 @@ public class TimingCounter : MonoBehaviour
     }
 
     public BeatInfo GetBeat (int beatIndex) {
+        if(beatIndex >= beats.Keys.Count) return null;
+
         BeatInfo[] beatTimes = new BeatInfo[beats.Keys.Count];
         beats.Keys.CopyTo(beatTimes, 0);
         return beatTimes[beatIndex];
     }
 
     public float GetBeatSpawnTime (int beatIndex) {
+        if(beatIndex >= beats.Keys.Count) return float.MaxValue;
+
         BeatInfo[] beatTimes = new BeatInfo[beats.Keys.Count];
         beats.Keys.CopyTo(beatTimes, 0);
         BeatInfo beatInfo = beatTimes[beatIndex];
