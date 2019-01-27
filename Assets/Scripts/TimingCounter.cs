@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
 public enum Accuracy {
     Great, Ok, Miss
@@ -8,11 +7,10 @@ public enum Accuracy {
 
 public class TimingCounter : MonoBehaviour
 {
+    public UI UI;
     public AudioSource AudioSource;
     public NoteController NoteController;
-    public GameObject missObj;
-    public GameObject okObj;
-    public GameObject perfObj;
+    public Score Score;
 
     public float songStartTime = 0.0f;
 
@@ -82,14 +80,15 @@ public class TimingCounter : MonoBehaviour
         //Debug.Log("current time: " + songPos + "; timing diff: " + timingDifference + "; accuracy: " + acc);
 
         // 4. DISPLAY RESULTS
-        ShowAccuracy(acc);
+        UI.ShowAccuracy(acc);
         NoteController.NoteHit(beat);
+        Score.NoteHit(acc);
         
         IncrementBeat();
     }
 
     public void NoteDied () {
-        ShowAccuracy(Accuracy.Miss);
+        UI.ShowAccuracy(Accuracy.Miss);
 
         // tell notecontroller so it can remove the note from the list of current notes
         float beat = GetCurrentBeat();
@@ -117,28 +116,5 @@ public class TimingCounter : MonoBehaviour
 
     private void IncrementBeat() {
         currentBeatIndex++;
-    }
-
-    private void ShowAccuracy(Accuracy acc) {
-        switch(acc) {
-            case Accuracy.Great:
-                missObj.SetActive(false);
-                okObj.SetActive(false);
-                perfObj.SetActive(true);
-            break;
-            case Accuracy.Ok:
-                missObj.SetActive(false);
-                okObj.SetActive(true);
-                perfObj.SetActive(false);
-            break;
-            case Accuracy.Miss:
-                missObj.SetActive(true);
-                okObj.SetActive(false);
-                perfObj.SetActive(false);
-            break;
-            default:
-                Debug.LogError("accuracy case not handled!");
-            break;
-        }
     }
 }

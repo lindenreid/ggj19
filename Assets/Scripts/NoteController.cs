@@ -33,7 +33,7 @@ public class NoteController : MonoBehaviour
     public void NoteHit(float beat) {
         if(notes.ContainsKey(beat)) {
             Note note = notes[beat];
-            Debug.Log("note attempted: " + note.gameObject.name);
+            //Debug.Log("note attempted: " + note.gameObject.name);
             note.PlayHitAnimation();
         }
         else {
