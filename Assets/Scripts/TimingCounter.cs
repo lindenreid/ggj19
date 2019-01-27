@@ -1,7 +1,8 @@
 ﻿using System.Collections.Generic;
-using UnityEngine;
 using System.IO;
 using System.Linq;
+using UnityEngine;
+using UnityEngine.UI;
 
 public enum Accuracy {
     Great, Ok, Miss
@@ -14,6 +15,7 @@ public class TimingCounter : MonoBehaviour
     public NoteController NoteController;
     public Score Score;
     public DumplingAnimator DumplingAnimator;
+    public Text songTimeDebugText;
     
     public string DataFileName = "sequences.json";
 
@@ -23,9 +25,7 @@ public class TimingCounter : MonoBehaviour
     public float accuracyOk;
     public float attemptWindow; // how far away (in seconds) from the next beat do we check for accuracy?
 
-    public float interval = 1; // placeholder interval for one set of beats to hit every Nth beat (interval = N)
     public float beatsPerSec = 1.0f; // number of beats per sec in this song
-    public int firstBeat = 8;
 
     private Dictionary<BeatInfo, float> beats; // maps beat time (sec) to note spawn time (sec)
     public Dictionary<BeatInfo, float> Beats {
@@ -47,12 +47,12 @@ public class TimingCounter : MonoBehaviour
 
         // initialize all of the song time location of beats
         foreach(BeatSequence seq in beatSequences) {
-            float currentTime = seq.startTime + songStartTime + firstBeat*beatsPerSec; // start at time of first beat
+            float currentTime = seq.startTime + songStartTime; // start at time of first beat
 
             while(currentTime <= seq.endTime && currentTime <= AudioSource.clip.length) {
                 float spawnTime = currentTime - timeFromSpawnToGoal;
                 if(spawnTime >= timeFromSpawnToGoal) { // don't add any notes that start too early
-                    beats.Add(new BeatInfo(currentTime, seq.noteType), spawnTime);
+                    beats.Add(new BeatInfo(currentTime, seq.noteType, seq.hasPriority), spawnTime);
                     //Debug.Log("added: " + currentTime + ", " + seq.noteType);
                     currentTime += seq.interval / beatsPerSec;
                 }
@@ -60,9 +60,17 @@ public class TimingCounter : MonoBehaviour
         }
         SortBeats();
 
+        foreach(BeatInfo i in beats.Keys) {
+            Debug.Log("beat time: " + i.beat + "; type: " + i.beatType);
+        }
+
         currentBeatIndex = 0;
 
         NoteController.Init(timeFromSpawnToGoal);
+    }
+
+    void Update () {
+        songTimeDebugText.text = AudioSource.time + "";
     }
 
     public void NoteHit (BeatType beatType) {
@@ -162,7 +170,21 @@ public class TimingCounter : MonoBehaviour
         Dictionary<BeatInfo, float> newBeats = new Dictionary<BeatInfo, float>();
         List<float> beatTimes = new List<float>();
         foreach(KeyValuePair<BeatInfo, float> kvp in beats.OrderBy(key => key.Value)) {
-            if(!beatTimes.Contains(kvp.Key.beat)) {
+            bool addNewKvp = true;
+            // if 2 beats are at the same position,
+            // only add new one if if has priority
+            if(beatTimes.Contains(kvp.Key.beat)) {
+                if(kvp.Key.hasPriority) {
+                    // remove old one
+                    BeatInfo keyToRemove = newBeats.Keys.FirstOrDefault(b => b.beat == kvp.Key.beat);
+                    newBeats.Remove(keyToRemove);
+                } else {
+                    // don't add new one
+                    addNewKvp = false;
+                }
+            }
+
+            if(addNewKvp) {
                 newBeats.Add(kvp.Key, kvp.Value);
                 beatTimes.Add(kvp.Key.beat);
             }

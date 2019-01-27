@@ -8,6 +8,7 @@ public enum BeatType {
 [Serializable]
 public class BeatSequence {
     public BeatType noteType;
+    public bool hasPriority;
     public float interval;
     public float startTime;
     public float endTime;
@@ -30,8 +31,10 @@ public class BeatSequenceList {
 public class BeatInfo {
     public float beat;
     public BeatType beatType;
-    public BeatInfo(float b, BeatType t) {
+    public bool hasPriority;
+    public BeatInfo(float b, BeatType t, bool p) {
         beat = b;
         beatType = t;
+        hasPriority = p;
     }
 }

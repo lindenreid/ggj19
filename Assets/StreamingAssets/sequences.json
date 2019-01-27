@@ -3,15 +3,17 @@
     [
         {
             "noteType" : "0",
-            "interval" : 2,
-            "startTime" : 0,
-            "endTime" : 120
+            "hasPriority" : "false",
+            "interval" : 1.5,
+            "startTime" : 16.5,
+            "endTime" : 292
         },
         {
             "noteType" : "1",
-            "interval" : 5,
-            "startTime" : 0,
-            "endTime" : 120
+            "hasPriority" : "true",
+            "interval" : 4,
+            "startTime" : 40.5,
+            "endTime" : 292
         }
     ]
 }
