@@ -60,9 +60,9 @@ public class TimingCounter : MonoBehaviour
         }
         SortBeats();
 
-        foreach(BeatInfo i in beats.Keys) {
+        /*foreach(BeatInfo i in beats.Keys) {
             Debug.Log("beat time: " + i.beat + "; type: " + i.beatType);
-        }
+        }*/
 
         currentBeatIndex = 0;
 
