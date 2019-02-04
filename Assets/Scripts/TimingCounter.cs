@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using UnityEngine;
@@ -18,10 +19,10 @@ public class TimingCounter : MonoBehaviour
     public Score Score;
     public DumplingAnimator DumplingAnimator;
     public Text songTimeDebugText;
-    
-    public string DataFileName = "sequences.json";
 
     public float songStartTime = 0.0f;
+
+    private string dataFileName = "sequences";
 
     public float accuracyGreat;
     public float accuracyOk;
@@ -47,9 +48,7 @@ public class TimingCounter : MonoBehaviour
     }
 
     void Start () {
-        gameRunning = true; 
-
-        ImportBeatSequences();
+        LoadBeatSequences();
 
         beats = new Dictionary<BeatInfo, float>();
         float timeFromSpawnToGoal = NoteController.beatsTillDest / beatsPerSec;
@@ -74,8 +73,30 @@ public class TimingCounter : MonoBehaviour
         }*/
 
         currentBeatIndex = 0;
-
+        gameRunning = true; 
         NoteController.Init(timeFromSpawnToGoal);
+    }
+
+    private void LoadBeatSequences () {
+        beatSequences = new List<BeatSequence>();
+
+        var textFile = Resources.Load<TextAsset>(dataFileName);
+        if(textFile == null) {
+            Debug.LogError("unable to find file: " + dataFileName);
+            return;
+        }
+
+        string text = textFile.text;
+        if(!string.IsNullOrEmpty(text)) {
+            BeatSequenceList listobj = JsonUtility.FromJson<BeatSequenceList>(text);
+            beatSequences = listobj.sequences;
+
+            /*foreach(BeatSequence s in beatSequences) {
+                Debug.Log("sequence type: " + s.noteType);
+            }*/
+        } else {
+            Debug.LogError("Beat sequence data file empty.");
+        }
     }
 
     void Update () {
@@ -170,25 +191,8 @@ public class TimingCounter : MonoBehaviour
         }
     }
 
-    // THIS SHOUDL BE SOMEWHERE ELSE BUT IDC
-    private void ImportBeatSequences () {
-        string filePath = Path.Combine (Application.streamingAssetsPath, DataFileName);
-
-		if (File.Exists (filePath)) {
-			string dataString = File.ReadAllText (filePath);
-			BeatSequenceList listobj = JsonUtility.FromJson<BeatSequenceList>(dataString);
-            beatSequences = listobj.sequences;
-		} else {
-			Debug.LogError("Unable to find beat sequence data file.");
-        }
-
-        /*foreach(BeatSequence s in beatSequences) {
-            Debug.Log("sequence type: " + s.noteType);
-        }*/
-    }
-
     // sort beats by spawn time
-    private void SortBeats () {
+    public void SortBeats () {
         Dictionary<BeatInfo, float> newBeats = new Dictionary<BeatInfo, float>();
         List<float> beatTimes = new List<float>();
         foreach(KeyValuePair<BeatInfo, float> kvp in beats.OrderBy(key => key.Value)) {

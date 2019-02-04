@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028334, g: 0.2257134, b: 0.30692226, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028352, g: 0.22571376, b: 0.30692244, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -89,7 +89,7 @@ LightmapSettings:
     m_PVRFilteringAtrousPositionSigmaAO: 1
     m_ShowResolutionOverlay: 1
   m_LightingDataAsset: {fileID: 0}
-  m_UseShadowmask: 1
+  m_UseShadowmask: 0
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -401,7 +401,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -803, y: -126}
+  m_AnchoredPosition: {x: -173, y: -126}
   m_SizeDelta: {x: 150.3, y: 64.1}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &108970009
@@ -453,7 +453,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f25c829bd1140e64b92ca377e0343442, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  originalLocation: {x: -803, y: -126, z: 0}
+  originalLocation: {x: -173, y: -126, z: 0}
   anim: {x: 0, y: 10, z: 0}
   duration: 0.5
 --- !u!1 &236127680
@@ -820,7 +820,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -796.5999, y: -131.9}
+  m_AnchoredPosition: {x: -173, y: -120.15001}
   m_SizeDelta: {x: 274.9, y: 75.8}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &505996285
@@ -872,7 +872,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f25c829bd1140e64b92ca377e0343442, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  originalLocation: {x: -796.6, y: -131.9, z: 0}
+  originalLocation: {x: -173, y: -131.9, z: 0}
   anim: {x: 0, y: 10, z: 0}
   duration: 0.5
 --- !u!1 &548310623
@@ -1275,7 +1275,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 639975287}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -7.93, y: -1.565, z: 0}
+  m_LocalPosition: {x: -1.63, y: -1.6, z: 0}
   m_LocalScale: {x: 8, y: 8, z: 1}
   m_Children: []
   m_Father: {fileID: 485048996}
@@ -1445,7 +1445,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -809.39996, y: -126}
+  m_AnchoredPosition: {x: -173, y: -126}
   m_SizeDelta: {x: 110.5, y: 64.1}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &717905986
@@ -1497,7 +1497,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f25c829bd1140e64b92ca377e0343442, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  originalLocation: {x: -809.4, y: -126, z: 0}
+  originalLocation: {x: -173, y: -126, z: 0}
   anim: {x: 0, y: 10, z: 0}
   duration: 0.5
 --- !u!1 &771933314
@@ -1878,7 +1878,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 855157186}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -7.61, y: -1.98, z: 0}
+  m_LocalPosition: {x: -0.85, y: -1.98, z: 0}
   m_LocalScale: {x: 0.277553, y: 0.277553, z: 0.277553}
   m_Children: []
   m_Father: {fileID: 0}
@@ -2947,7 +2947,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1525150019}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.22459738, y: -1.62, z: -0.16986746}
+  m_LocalPosition: {x: 6.38, y: -1.69, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 485048996}
@@ -3462,7 +3462,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1699182249}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -5.8, y: 1.01, z: 0}
+  m_LocalPosition: {x: -6.69, y: -1.94, z: 0}
   m_LocalScale: {x: 0.39556617, y: 0.39556617, z: 0.39556617}
   m_Children: []
   m_Father: {fileID: 0}
@@ -3485,7 +3485,7 @@ MonoBehaviour:
   anim: {fileID: 1699182250}
   animName: dumpling
   numFrames: 8
-  originalLocation: {x: -5.8, y: 1.01, z: 0}
+  originalLocation: {x: -6.51, y: -1.85, z: 0}
   finishAnimation: {x: 0, y: 15, z: 0}
   fadeSpeed: 2
   finishAnimDuration: 0.5
