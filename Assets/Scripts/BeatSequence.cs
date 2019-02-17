@@ -35,9 +35,11 @@ public class BeatInfo {
     public float beat;
     public BeatType beatType;
     public bool hasPriority;
-    public BeatInfo(float b, BeatType t, bool p) {
+    public float spawnTime;
+    public BeatInfo(float b, BeatType t, bool p, float st) {
         beat = b;
         beatType = t;
         hasPriority = p;
+        spawnTime = st;
     }
 }

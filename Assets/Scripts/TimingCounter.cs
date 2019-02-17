@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Text;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -30,8 +31,8 @@ public class TimingCounter : MonoBehaviour
 
     public float beatsPerSec = 1.0f; // number of beats per sec in this song
 
-    private Dictionary<BeatInfo, float> beats; // maps beat time (sec) to note spawn time (sec)
-    public Dictionary<BeatInfo, float> Beats {
+    private List<BeatInfo> beats; // maps beat time (sec) to note spawn time (sec)
+    public List<BeatInfo> Beats {
         get { return beats; }
     }
 
@@ -50,7 +51,7 @@ public class TimingCounter : MonoBehaviour
     void Start () {
         LoadBeatSequences();
 
-        beats = new Dictionary<BeatInfo, float>();
+        beats = new List<BeatInfo>();
         float timeFromSpawnToGoal = NoteController.beatsTillDest / beatsPerSec;
 
         // initialize all of the song time location of beats
@@ -60,7 +61,7 @@ public class TimingCounter : MonoBehaviour
             while(currentTime <= seq.endTime && currentTime <= AudioSource.clip.length) {
                 float spawnTime = currentTime - timeFromSpawnToGoal;
                 if(spawnTime >= timeFromSpawnToGoal) { // don't add any notes that start too early
-                    beats.Add(new BeatInfo(currentTime, seq.noteType, seq.hasPriority), spawnTime);
+                    beats.Add(new BeatInfo(currentTime, seq.noteType, seq.hasPriority, spawnTime));
                     //Debug.Log("added: " + currentTime + ", " + seq.noteType);
                     currentTime += seq.interval / beatsPerSec;
                 }
@@ -97,10 +98,6 @@ public class TimingCounter : MonoBehaviour
         } else {
             Debug.LogError("Beat sequence data file empty.");
         }
-    }
-
-    void Update () {
-        songTimeDebugText.text = AudioSource.time + "";
     }
 
     public void NoteHit (BeatType beatType) {
@@ -163,20 +160,13 @@ public class TimingCounter : MonoBehaviour
     }
 
     public BeatInfo GetBeat (int beatIndex) {
-        if(beatIndex >= beats.Keys.Count) return null;
-
-        BeatInfo[] beatTimes = new BeatInfo[beats.Keys.Count];
-        beats.Keys.CopyTo(beatTimes, 0);
-        return beatTimes[beatIndex];
+        if(beatIndex >= beats.Count || beatIndex < 0) return null;
+        return beats[beatIndex];
     }
 
     public float GetBeatSpawnTime (int beatIndex) {
-        if(beatIndex >= beats.Keys.Count) return float.MaxValue;
-
-        BeatInfo[] beatTimes = new BeatInfo[beats.Keys.Count];
-        beats.Keys.CopyTo(beatTimes, 0);
-        BeatInfo beatInfo = beatTimes[beatIndex];
-        return beats[beatInfo];
+        if(beatIndex >= beats.Count || beatIndex < 0) return -1.0f;
+        return beats[beatIndex].spawnTime;
     }
 
     private void IncrementBeat() {
@@ -186,33 +176,31 @@ public class TimingCounter : MonoBehaviour
         //Debug.Log("beat type: " + i.beatType + "; beat: " + i.beat);
         currentBeatIndex++;
 
-        if(currentBeatIndex >= beats.Keys.Count) {
+        if(currentBeatIndex >= beats.Count) {
             EndGame();
         }
     }
 
     // sort beats by spawn time
     public void SortBeats () {
-        Dictionary<BeatInfo, float> newBeats = new Dictionary<BeatInfo, float>();
-        List<float> beatTimes = new List<float>();
-        foreach(KeyValuePair<BeatInfo, float> kvp in beats.OrderBy(key => key.Value)) {
-            bool addNewKvp = true;
+        List<BeatInfo> newBeats = new List<BeatInfo>();
+        foreach(BeatInfo beatInfo in beats.OrderBy(b => b.spawnTime)) {
+            bool addNewBeat = true;
             // if 2 beats are at the same position,
             // only add new one if if has priority
-            if(beatTimes.Contains(kvp.Key.beat)) {
-                if(kvp.Key.hasPriority) {
+            if(newBeats.Any(b => b.beat == beatInfo.beat)) {
+                if(beatInfo.hasPriority) {
                     // remove old one
-                    BeatInfo keyToRemove = newBeats.Keys.FirstOrDefault(b => b.beat == kvp.Key.beat);
-                    newBeats.Remove(keyToRemove);
+                    BeatInfo beatToRemove = newBeats.FirstOrDefault(b => b.beat == beatInfo.beat);
+                    newBeats.Remove(beatToRemove);
                 } else {
                     // don't add new one
-                    addNewKvp = false;
+                    addNewBeat = false;
                 }
             }
 
-            if(addNewKvp) {
-                newBeats.Add(kvp.Key, kvp.Value);
-                beatTimes.Add(kvp.Key.beat);
+            if(addNewBeat) {
+                newBeats.Add(beatInfo);
             }
         }
         beats = newBeats;
